@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 MAINTAINER Andy C "aecobley@dundee.ac.uk"
 # From https://www.leaseweb.com/labs/2013/11/streaming-video-demand-nginx-rtmp-module/
 ENV REFRESHED_AT 2015-10-21
-RUN apt-get -y -q update 
+RUN apt-get -y -q update
 RUN apt-get install -y git
 RUN apt-get install -y gcc
 RUN apt-get install -y make
@@ -20,5 +20,8 @@ RUN mkdir -p /var/nginx-streaming
 RUN mkdir -p /var/log/nginx
 RUN cp /home/nginx-rtmp-module/stat.xsl /var/nginx-streaming/
 ADD nginx/nginx.conf /usr/local/nginx-streaming/conf/nginx.conf
+COPY mp4 ./var/mp4s
+COPY www ./var/www
 EXPOSE 80
 EXPOSE 1935
+ENTRYPOINT ["./usr/local/nginx-streaming/sbin/nginx"]
